@@ -1,0 +1,47 @@
+## September 2022 Core Configuration ##
+
+
+
+## Admin Switch Configuration ##
+enable
+configure terminal
+hostname Admin_Sw
+vlan 10
+name CTF
+exit
+vlan 20
+name Slayer
+exit
+interface f0/1
+switchport mode access
+switchport access vlan 10
+interface f0/2
+switchport mode access
+switchport access vlan 20
+interface f0/3
+switchport mode trunk
+end
+copy run start
+
+
+
+## RELLIS Core Switch 1 Switch Configuration ##
+enable
+configure terminal
+hostname RELLIS_Core_Sw1
+interface range fa0/1-8
+switchport mode trunk
+end
+copy run start
+
+
+
+
+## RELLIS Core Switch 2 Switch Configuration ##
+enable
+configure terminal
+hostname RELLIS_Core_Sw2
+interface range fa0/1-7
+switchport mode trunk
+end
+copy run start
