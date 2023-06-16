@@ -1,0 +1,114 @@
+## October 2022 Core Configuration ##
+
+
+
+## ISP Router Configurations ##
+enable
+configure terminal
+hostname ISP_Rtr
+interface g0/0/1
+ip address 12.12.12.1 255.255.255.0
+no shutdown
+exit
+interface g0/0/2
+ip address 209.0.0.1 255.255.255.252
+no shutdown
+exit
+configure terminal
+router bgp 2222
+neighbor 209.0.0.2 remote-as 1111
+network 12.12.12.0 mask 255.255.255.0
+end
+copy run start
+
+
+
+## TAMU Core Router Configurations ##
+enable
+configure terminal
+hostname TAMU_Core_Rtr
+interface g0/0/1.10
+encapsulation dot1q 10
+ip address 192.168.0.2 255.255.255.252
+exit
+interface g0/0/1.20
+encapsulation dot1q 20
+ip address 192.168.0.6 255.255.255.252
+exit
+interface g0/0/1.30
+encapsulation dot1q 30
+ip address 192.168.0.10 255.255.255.252
+exit
+interface g0/0/1.40
+encapsulation dot1q 40
+ip address 192.168.0.14 255.255.255.252
+exit
+interface g0/0/1
+no shutdown
+exit
+interface g0/0/2
+ip address 209.0.0.2 255.255.255.252
+no shutdown
+exit
+configure terminal
+router bgp 1111
+neighbor 209.0.0.1 remote-as 2222
+network 192.168.0.0 mask 255.255.255.252
+exit
+router ospf 1
+router-id 6.7.0.0
+network 192.168.0.0 0.0.0.3 area 0
+network 192.168.0.4 0.0.0.3 area 0 
+network 192.168.0.8 0.0.0.3 area 0
+network 192.168.0.12 0.0.0.3 area 0
+exit
+router bgp 1111
+redistribute ospf 1 match external
+exit
+router ospf 1
+redistribute bgp 1111 subnets
+end
+copy run start
+
+
+
+## TAMU Core Switch Configurations ##
+enable
+configure terminal
+hostname TAMU_Core_Sw
+vlan 10
+name area1
+exit
+vlan 20
+name area2
+exit
+vlan 30
+name area3
+exit
+vlan 40
+name area4
+exit
+interface fa0/1
+switchport mode access
+switchport access vlan 10
+exit
+interface fa0/2
+switchport mode access
+switchport access vlan 20
+interface fa0/3
+switchport mode access
+switchport access vlan 30
+exit
+interface fa0/4
+switchport mode access
+switchport access vlan 40
+exit
+interface fa0/5
+switchport mode trunk
+switchport trunk allowed vlan add 10
+switchport trunk allowed vlan add 20
+switchport trunk allowed vlan add 30
+switchport trunk allowed vlan add 40
+end
+copy run start
+
