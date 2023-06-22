@@ -16,7 +16,7 @@ ip dhcp excluded-address 192.168.1.1 192.168.1.10
 ip dhcp pool Cisco1
 network 192.168.1.0 255.255.255.0
 default-router 192.168.1.1
-dns-server 192.168.10.1
+dns-server 192.168.2.1
 exit
 username texas password aggies
 ip domain-name tamu.com
