@@ -1,0 +1,88 @@
+## February 2023 Core Configuration ##
+
+
+
+## Admin Switch Configuration ##
+enable 
+configure terminal
+hostname AdminSw
+vlan 10
+name CTF
+exit
+vlan 20
+name Slayer
+exit
+interface fa0/3
+switchport mode trunk
+switchport trunk allowed vlan add 10
+switchport trunk allowed vlan add 20
+exit
+interface fa0/1
+switchport mode access
+switchport access vlan 10
+exit
+interface fa0/2
+switchport mode access
+switchport access vlan 20
+end
+copy run start
+
+
+
+
+## Core Switch 1 Configuration ##
+enable
+configure terminal
+hostname CoreSw1
+vlan 10
+name CTF
+exit
+vlan 20
+name Slayer
+exit
+interface range fa0/1-3
+switchport mode trunk
+switchport trunk allowed vlan add 10
+switchport trunk allowed vlan add 20
+end
+copy run start
+
+
+
+
+## Core Switch 2 Configuration ##
+enable
+configure terminal
+hostname CoreSw2
+vlan 10
+name CTF
+exit
+vlan 20
+name Slayer
+exit
+interface range fa0/1-13
+switchport mode trunk
+switchport trunk allowed vlan add 10
+switchport trunk allowed vlan add 20
+end
+copy run start
+
+
+
+
+## Core Switch 3 Configuration ##
+enable
+configure terminal
+hostname CoreSw3
+vlan 10
+name CTF
+exit
+vlan 20
+name Slayer
+exit
+interface range fa0/1-13
+switchport mode trunk
+switchport trunk allowed vlan add 10
+switchport trunk allowed vlan add 20
+end
+copy run start
