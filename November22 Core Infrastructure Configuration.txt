@@ -1,0 +1,29 @@
+## November 2022 Router Configuration ##
+
+
+
+## Access Router Configurations ##
+enable
+configure terminal
+hostname Cisco1
+enable secret aggies
+service password-encryption
+interface g0/0/0
+ip address 192.168.1.1 255.255.255.0
+no shutdown
+exit
+ip dhcp excluded-address 192.168.1.1 192.168.1.10
+ip dhcp pool Cisco1
+network 192.168.1.0 255.255.255.0
+default-router 192.168.1.1
+dns-server 192.168.10.1
+exit
+username texas password aggies
+ip domain-name tamu.com
+crypto key generate rsa general-keys modulus 1024
+ip ssh version 2
+line vty 0 4
+login local 
+transport input ssh
+end
+copy run start
